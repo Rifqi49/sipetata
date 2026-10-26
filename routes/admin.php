@@ -8,6 +8,6 @@ Route::middleware(['auth', 'is_admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::resource('wisata', WisataController::class);
     });

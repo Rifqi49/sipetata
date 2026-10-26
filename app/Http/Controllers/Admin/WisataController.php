@@ -10,18 +10,12 @@ use Illuminate\Http\Request;
 
 class WisataController extends Controller
 {
-    /**
-     * Daftar semua wisata (dengan pagination).
-     */
     public function index()
     {
         $wisata = Wisata::with(['kategori', 'desa'])->latest()->paginate(10);
         return view('admin.wisata.index', compact('wisata'));
     }
 
-    /**
-     * Form tambah wisata.
-     */
     public function create()
     {
         $kategori = Kategori::all();
@@ -29,9 +23,6 @@ class WisataController extends Controller
         return view('admin.wisata.create', compact('kategori', 'desa'));
     }
 
-    /**
-     * Simpan wisata baru.
-     */
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -53,18 +44,11 @@ class WisataController extends Controller
                          ->with('success', 'Data wisata berhasil ditambahkan.');
     }
 
-    /**
-     * Detail wisata (tidak dipakai di panel admin, tapi wajib ada
-     * karena Route::resource mendaftarkan method show).
-     */
     public function show(Wisata $wisata)
     {
         return redirect()->route('admin.wisata.edit', $wisata);
     }
 
-    /**
-     * Form edit wisata.
-     */
     public function edit(Wisata $wisata)
     {
         $kategori = Kategori::all();
@@ -72,9 +56,6 @@ class WisataController extends Controller
         return view('admin.wisata.edit', compact('wisata', 'kategori', 'desa'));
     }
 
-    /**
-     * Update wisata.
-     */
     public function update(Request $request, Wisata $wisata)
     {
         $data = $request->validate([
@@ -96,9 +77,6 @@ class WisataController extends Controller
                          ->with('success', 'Data wisata berhasil diperbarui.');
     }
 
-    /**
-     * Hapus wisata.
-     */
     public function destroy(Wisata $wisata)
     {
         $wisata->delete();

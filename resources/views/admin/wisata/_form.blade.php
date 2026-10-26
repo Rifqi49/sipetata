@@ -25,7 +25,7 @@
     </div>
 
     <div>
-        <label class="block text-sm font-medium text-gray-700">Desa</label>
+        <label class="block text-sm font-medium text-gray-700">Desa (opsional)</label>
         <select name="desa_id" class="mt-1 w-full border-gray-300 rounded shadow-sm">
             <option value="">— Pilih —</option>
             @foreach($desa as $d)
@@ -41,6 +41,7 @@
         <label class="block text-sm font-medium text-gray-700">Latitude</label>
         <input type="text" name="latitude"
                value="{{ old('latitude', $wisata->latitude ?? '') }}"
+               placeholder="-3.8000"
                class="mt-1 w-full border-gray-300 rounded shadow-sm" required>
         @error('latitude') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
     </div>
@@ -49,6 +50,7 @@
         <label class="block text-sm font-medium text-gray-700">Longitude</label>
         <input type="text" name="longitude"
                value="{{ old('longitude', $wisata->longitude ?? '') }}"
+               placeholder="115.5000"
                class="mt-1 w-full border-gray-300 rounded shadow-sm" required>
         @error('longitude') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
     </div>
@@ -57,6 +59,13 @@
         <label class="block text-sm font-medium text-gray-700">Deskripsi</label>
         <textarea name="deskripsi" rows="4"
                   class="mt-1 w-full border-gray-300 rounded shadow-sm">{{ old('deskripsi', $wisata->deskripsi ?? '') }}</textarea>
+    </div>
+
+    <div class="md:col-span-2">
+        <label class="block text-sm font-medium text-gray-700">Alamat</label>
+        <input type="text" name="alamat"
+               value="{{ old('alamat', $wisata->alamat ?? '') }}"
+               class="mt-1 w-full border-gray-300 rounded shadow-sm">
     </div>
 
     <div>

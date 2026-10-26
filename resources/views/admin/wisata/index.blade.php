@@ -50,7 +50,7 @@
             @empty
                 <tr>
                     <td colspan="6" class="px-4 py-6 text-center text-gray-500">
-                        Belum ada data wisata.
+                        Belum ada data wisata. Klik "Tambah Wisata" untuk mulai.
                     </td>
                 </tr>
             @endforelse

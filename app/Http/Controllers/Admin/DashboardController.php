@@ -12,6 +12,7 @@ class DashboardController extends Controller
     {
         $totalWisata   = Wisata::count();
         $totalKategori = Kategori::count();
+
         return view('admin.dashboard', compact('totalWisata', 'totalKategori'));
     }
 }
