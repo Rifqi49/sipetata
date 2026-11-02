@@ -16,7 +16,7 @@
                 <th class="px-4 py-2">No</th>
                 <th class="px-4 py-2">Nama</th>
                 <th class="px-4 py-2">Kategori</th>
-                <th class="px-4 py-2">Desa</th>
+                <th class="px-4 py-2">Petugas</th>
                 <th class="px-4 py-2">Koordinat</th>
                 <th class="px-4 py-2 text-right">Aksi</th>
             </tr>
@@ -32,25 +32,36 @@
                             {{ $w->kategori->nama_kategori }}
                         </span>
                     </td>
-                    <td class="px-4 py-2">{{ $w->desa->nama_desa ?? '-' }}</td>
+                    <td class="px-4 py-2 text-gray-600">
+                        {{ $w->user->name ?? '-' }}
+                    </td>
                     <td class="px-4 py-2 text-gray-500">
                         {{ $w->latitude }}, {{ $w->longitude }}
                     </td>
                     <td class="px-4 py-2 text-right space-x-1">
-                        <a href="{{ route('admin.wisata.edit', $w) }}"
-                           class="text-blue-600 hover:underline">Edit</a>
-                        <form action="{{ route('admin.wisata.destroy', $w) }}"
-                              method="POST" class="inline"
-                              onsubmit="return confirm('Yakin hapus data ini?')">
-                            @csrf @method('DELETE')
-                            <button class="text-red-600 hover:underline">Hapus</button>
-                        </form>
+                        @php
+                            $bolehKelola = auth()->user()->role !== 'petugas'
+                                           || $w->user_id === auth()->id();
+                        @endphp
+
+                        @if($bolehKelola)
+                            <a href="{{ route('admin.wisata.edit', $w) }}"
+                               class="text-blue-600 hover:underline">Edit</a>
+                            <form action="{{ route('admin.wisata.destroy', $w) }}"
+                                  method="POST" class="inline"
+                                  onsubmit="return confirm('Yakin hapus data ini?')">
+                                @csrf @method('DELETE')
+                                <button class="text-red-600 hover:underline">Hapus</button>
+                            </form>
+                        @else
+                            <span class="text-gray-400 text-xs">—</span>
+                        @endif
                     </td>
                 </tr>
             @empty
                 <tr>
                     <td colspan="6" class="px-4 py-6 text-center text-gray-500">
-                        Belum ada data wisata. Klik "Tambah Wisata" untuk mulai.
+                        Belum ada data wisata.
                     </td>
                 </tr>
             @endforelse

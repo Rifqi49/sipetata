@@ -13,7 +13,11 @@
         <aside class="w-64 bg-emerald-800 text-white flex flex-col">
             <div class="p-4 border-b border-emerald-700">
                 <h1 class="text-xl font-bold leading-tight">SIPETATA</h1>
-                <p class="text-xs text-emerald-200">Sistem Pemetaan Wisata Tanah Bumbu</p>
+                <p class="text-xs text-emerald-200 mb-2">Sistem Pemetaan Wisata Tanah Bumbu</p>
+                <div class="text-xs bg-emerald-900 rounded px-2 py-1">
+                    <p class="font-semibold">{{ auth()->user()->name }}</p>
+                    <p class="text-emerald-300 capitalize">{{ auth()->user()->role }}</p>
+                </div>
             </div>
             <nav class="flex-1 p-4 space-y-1">
                 <a href="{{ route('admin.dashboard') }}"

@@ -10,10 +10,10 @@ class IsAdmin
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && in_array(auth()->user()->role, ['admin', 'superadmin'])) {
+        if (auth()->check() && in_array(auth()->user()->role, ['superadmin', 'admin', 'petugas'])) {
             return $next($request);
         }
 
-        abort(403, 'Akses ditolak. Halaman ini hanya untuk admin.');
+        abort(403, 'Akses ditolak. Halaman ini hanya untuk admin atau petugas.');
     }
 }
