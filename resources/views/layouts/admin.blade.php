@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin') — SIPETATA</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('styles')
 </head>
 <body class="h-full">
     <div class="min-h-full flex">
@@ -30,9 +31,10 @@
                           {{ request()->routeIs('admin.wisata.*') ? 'bg-emerald-700' : '' }}">
                     Data Wisata
                 </a>
-                <a href="{{ route('peta') }}" target="_blank"
-                   class="block px-3 py-2 rounded hover:bg-emerald-700">
-                    Lihat Peta ↗
+                <a href="{{ route('admin.peta') }}"
+                   class="block px-3 py-2 rounded hover:bg-emerald-700
+                          {{ request()->routeIs('admin.peta') ? 'bg-emerald-700' : '' }}">
+                    Peta Wisata
                 </a>
             </nav>
             <form method="POST" action="{{ route('logout') }}" class="p-4 border-t border-emerald-700">
@@ -59,5 +61,6 @@
             @yield('content')
         </main>
     </div>
+    @stack('scripts')
 </body>
 </html>

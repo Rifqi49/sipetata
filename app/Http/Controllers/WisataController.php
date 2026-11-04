@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\WisataResource;
 use App\Models\Wisata;
 use App\Models\Kategori;
 
@@ -35,24 +36,7 @@ class WisataController extends Controller
     {
         $wisata = Wisata::with(['kategori', 'desa'])->get();
 
-        return response()->json($wisata->map(function ($w) {
-            return [
-                'id'          => $w->id,
-                'nama_wisata' => $w->nama_wisata,
-                'deskripsi'   => $w->deskripsi,
-                'latitude'    => (float) $w->latitude,
-                'longitude'   => (float) $w->longitude,
-                'alamat'      => $w->alamat,
-                'jam_buka'    => $w->jam_buka,
-                'harga_tiket' => $w->harga_tiket,
-                'fasilitas'   => $w->fasilitas,
-                'foto_utama'  => $w->foto_utama,
-                'kategori'    => [
-                    'nama'  => $w->kategori->nama_kategori,
-                    'warna' => $w->kategori->warna_marker,
-                ],
-                'desa' => $w->desa ? $w->desa->nama_desa : null,
-            ];
-        }));
+        // toArray() menjaga bentuk respons tetap array polos seperti sebelumnya.
+        return WisataResource::collection($wisata)->toArray(request());
     }
 }

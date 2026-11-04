@@ -35,20 +35,35 @@
         </select>
     </div>
 
-    {{-- Tombol admin --}}
-    <a href="{{ route('login') }}"
-       class="absolute top-4 right-4 z-[1000] bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded shadow text-sm">
-        Login Admin
-    </a>
+    {{-- Tombol pintar: Dashboard bila sudah login, Login bila belum --}}
+    @auth
+        <a href="{{ route('admin.dashboard') }}"
+           class="absolute top-4 right-4 z-[1000] bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded shadow text-sm">
+            Dashboard
+        </a>
+    @else
+        <a href="{{ route('login') }}"
+           class="absolute top-4 right-4 z-[1000] bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded shadow text-sm">
+            Login
+        </a>
+    @endauth
 
     <div id="map"></div>
 
+    @include('partials.wilayah-tanah-bumbu')
+
     <script>
-        var map = L.map('map').setView([-3.45, 115.7], 9);
+        var map = L.map('map', { zoomControl: false }).setView([-3.45, 115.7], 9);
+
+        // Zoom di kanan bawah agar tidak menutupi kartu SIPETATA di kiri atas.
+        L.control.zoom({ position: 'bottomright' }).addTo(map);
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
+
+        // Tampilkan batas Kabupaten Tanah Bumbu (sekaligus fit ke wilayahnya).
+        muatWilayahTanahBumbu(map);
 
         var semuaMarker = [];
 
