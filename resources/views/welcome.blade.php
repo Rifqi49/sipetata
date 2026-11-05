@@ -11,10 +11,8 @@
     {{-- ============ NAVBAR ============ --}}
     <nav class="bg-white shadow-sm">
         <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-            <div>
-                <h1 class="text-xl font-bold text-emerald-700 leading-tight">SIPETATA</h1>
-                <p class="text-xs text-gray-500">Sistem Pemetaan Wisata Tanah Bumbu</p>
-            </div>
+            <img src="{{ asset('images/logo-sipetata-trim.png') }}" alt="Logo SIPETATA"
+                 class="h-14 sm:h-16 md:h-20 w-auto object-contain">
             <div class="flex items-center gap-3">
                 <a href="{{ route('login') }}"
                    class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm px-4 py-2 rounded-lg shadow">
