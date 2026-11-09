@@ -29,7 +29,7 @@
                 Jelajahi Wisata<br class="md:hidden"> Kabupaten Tanah Bumbu
             </h2>
             <p class="text-emerald-100 text-lg max-w-2xl mx-auto mb-8">
-                Temukan destinasi wisata alam, bahari, budaya, dan buatan
+                Temukan destinasi wisata alam, budaya, religi, dan akomodasi
                 di Kabupaten Tanah Bumbu melalui peta interaktif.
             </p>
             <div class="flex flex-col sm:flex-row gap-3 justify-center">

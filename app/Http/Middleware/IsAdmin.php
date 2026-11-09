@@ -10,7 +10,7 @@ class IsAdmin
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && in_array(auth()->user()->role, ['superadmin', 'admin', 'petugas'])) {
+        if (auth()->check() && in_array(auth()->user()->role, ['admin', 'petugas'])) {
             return $next($request);
         }
 
