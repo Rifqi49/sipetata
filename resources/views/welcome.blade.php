@@ -29,7 +29,7 @@
                 Jelajahi Wisata<br class="md:hidden"> Kabupaten Tanah Bumbu
             </h2>
             <p class="text-emerald-100 text-lg max-w-2xl mx-auto mb-8">
-                Temukan destinasi wisata alam, budaya, religi, dan akomodasi
+                Temukan destinasi wisata alam, religi & budaya, serta buatan
                 di Kabupaten Tanah Bumbu melalui peta interaktif.
             </p>
             <div class="flex flex-col sm:flex-row gap-3 justify-center">
@@ -107,7 +107,7 @@
             <p class="font-semibold text-white mb-1">SIPETATA</p>
             <p>Sistem Pemetaan Wisata Tanah Bumbu</p>
             <p class="mt-3 text-xs text-emerald-300">
-                &copy; {{ date('Y') }} — Dikembangkan untuk Diskominfosp Kabupaten Tanah Bumbu
+                &copy; {{ date('Y') }} — Dikembangkan untuk Project Magang oleh <a href="https://www.linkedin.com/in/muhammad-rifqi-alfareza-890aa9315" class="underline hover:text-white">Muhammad Rifqi Alfareza</a>
             </p>
         </div>
     </footer>
