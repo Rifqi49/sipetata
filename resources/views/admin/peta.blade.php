@@ -18,7 +18,7 @@
                 class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
             <option value="">Semua Kategori</option>
             @foreach($kategori as $k)
-                <option value="{{ $k->nama_kategori }}">{{ $k->nama_kategori }}</option>
+                <option value="{{ $k->id }}">{{ $k->nama_kategori }}</option>
             @endforeach
         </select>
     </div>
@@ -68,7 +68,7 @@
 
             adminMarkers.forEach(function (m) {
                 var cocokNama = m.nama.includes(keyword);
-                var cocokKategori = kategori === '' || m.kategori === kategori;
+                var cocokKategori = kategori === '' || m.kategoriId === kategori;
 
                 if (cocokNama && cocokKategori) {
                     if (!adminMap.hasLayer(m.marker)) adminMap.addLayer(m.marker);
@@ -97,6 +97,7 @@
 
                     var popup = `
                         <div style="min-width:220px">
+                            ${item.foto_utama ? `<img src="/storage/${item.foto_utama}" alt="${item.nama_wisata}" style="width:100%;height:130px;object-fit:cover;border-radius:6px;margin-bottom:8px">` : ''}
                             <h3 style="margin:0 0 4px;font-size:14px;font-weight:bold">${item.nama_wisata}</h3>
                             <span style="background:${item.kategori.warna};color:#fff;padding:2px 8px;border-radius:4px;font-size:11px">
                                 ${item.kategori.nama}
@@ -118,7 +119,8 @@
                     adminMarkers.push({
                         marker: marker,
                         nama: item.nama_wisata.toLowerCase(),
-                        kategori: item.kategori.nama
+                        kategori: item.kategori.nama,
+                        kategoriId: String(item.kategori.id)
                     });
                 });
 

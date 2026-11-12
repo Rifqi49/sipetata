@@ -27,8 +27,9 @@ class WisataResource extends JsonResource
             'fasilitas'   => $this->fasilitas,
             'foto_utama'  => $this->foto_utama,
             'kategori'    => [
-                'nama'  => $this->kategori->nama_kategori,
-                'warna' => $this->kategori->warna_marker,
+                'id'    => $this->kategori_id,
+                'nama'  => $this->kategori?->nama_kategori,
+                'warna' => $this->kategori?->warna_marker ?? '#3388ff',
             ],
             'desa' => $this->desa ? $this->desa->nama_desa : null,
             'pemilik' => $this->when(

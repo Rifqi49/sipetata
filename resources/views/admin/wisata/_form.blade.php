@@ -91,6 +91,22 @@
                class="mt-1 w-full border-gray-300 rounded shadow-sm">
     </div>
 </div>
+    
+<div class="md:col-span-2">
+    <label class="block text-sm font-medium text-gray-700">Foto Utama (Opsional)</label>
+    <input type="file" name="foto_utama" accept="image/*"
+           class="mt-1 w-full border border-gray-300 rounded p-2 text-sm">
+    @error('foto_utama') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
+
+    {{-- Tampilkan foto lama jika sedang mengedit --}}
+    @if(isset($wisata) && $wisata->foto_utama)
+        <div class="mt-3">
+            <p class="text-xs text-gray-500 mb-1">Foto saat ini:</p>
+            <img src="{{ asset('storage/' . $wisata->foto_utama) }}" 
+                 alt="Foto Wisata" class="w-32 h-32 object-cover rounded shadow">
+        </div>
+    @endif
+</div>
 
 <div class="mt-6 flex justify-end gap-2">
     <a href="{{ route('admin.wisata.index') }}"

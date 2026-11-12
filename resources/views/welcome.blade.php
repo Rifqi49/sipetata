@@ -70,19 +70,22 @@
             <p class="text-gray-500 mt-1">Wisata Tanah Bumbu terbagi dalam beberapa kategori</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="flex flex-wrap justify-center gap-6">
             @foreach($kategori as $k)
-                <a href="{{ route('peta') }}"
-                   class="bg-white rounded-xl shadow hover:shadow-lg transition p-6 border-t-4"
-                   style="border-top-color: {{ $k->warna_marker }}">
+                <a href="{{ route('peta', ['kategori' => $k->id]) }}"
+                    class="w-full sm:w-64 bg-white rounded-xl shadow hover:shadow-lg transition p-6 border-t-4 flex flex-col items-center text-center"
+                    style="border-top-color: {{ $k->warna_marker }}">
+                    
                     <div class="w-10 h-10 rounded-full mb-3 flex items-center justify-center text-white text-lg"
                          style="background: {{ $k->warna_marker }}">
                         📍
                     </div>
+                    
                     <h4 class="font-semibold text-gray-800">{{ $k->nama_kategori }}</h4>
                     <p class="text-sm text-gray-500 mt-1">
                         {{ $k->wisata_count }} destinasi
                     </p>
+                    
                 </a>
             @endforeach
         </div>

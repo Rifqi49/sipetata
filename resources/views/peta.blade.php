@@ -30,7 +30,7 @@
                 class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
             <option value="">Semua Kategori</option>
             @foreach($kategori as $k)
-                <option value="{{ $k->nama_kategori }}">{{ $k->nama_kategori }}</option>
+                <option value="{{ $k->id }}">{{ $k->nama_kategori }}</option>
             @endforeach
         </select>
     </div>
@@ -239,6 +239,12 @@
         function buatPopup(item) {
             var jarakTeks = '';
             var tombolRute = '';
+            var fotoTeks = '';
+
+            if (item.foto_utama) {
+                var urlFoto = '/storage/' + item.foto_utama;
+                fotoTeks = `<img src="${urlFoto}" style="width:100%; height:130px; object-fit:cover; border-radius:6px; margin-bottom:8px;" alt="${item.nama_wisata}">`;
+            }
 
             if (lokasiSaya) {
                 var km = jarakKm(lokasiSaya.lat, lokasiSaya.lng, item.latitude, item.longitude);
@@ -253,6 +259,7 @@
 
             return `
                 <div style="min-width:200px">
+                    ${fotoTeks}
                     <h3 style="margin:0 0 4px;font-size:14px;font-weight:bold">${item.nama_wisata}</h3>
                     <span style="background:${item.kategori.warna};color:#fff;padding:2px 8px;border-radius:4px;font-size:11px">
                         ${item.kategori.nama}
@@ -266,6 +273,11 @@
                     ${tombolRute}
                 </div>
             `;
+        }
+
+        var kategoriDariUrl = new URLSearchParams(window.location.search).get('kategori');
+        if (kategoriDariUrl !== null) {
+            document.getElementById('filterKategori').value = kategoriDariUrl;
         }
 
         fetch('{{ route("api.wisata") }}')
@@ -294,6 +306,8 @@
                         data: item
                     });
                 });
+
+                applyFilter();
             });
 
         map.on('popupopen', function (e) {
@@ -379,7 +393,7 @@
 
             semuaMarker.forEach(function(m) {
                 var cocokNama = m.nama.includes(keyword);
-                var cocokKategori = kategori === '' || m.kategori === kategori;
+                var cocokKategori = kategori === '' || String(m.data.kategori.id) === kategori;
 
                 if (cocokNama && cocokKategori) {
                     if (!map.hasLayer(m.marker)) map.addLayer(m.marker);

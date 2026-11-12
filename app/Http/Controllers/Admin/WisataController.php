@@ -35,7 +35,7 @@ class WisataController extends Controller
 
     public function create()
     {
-        $kategori = Kategori::all();
+        $kategori = Kategori::orderBy('nama_kategori')->get();
         $desa     = Desa::all();
         return view('admin.wisata.create', compact('kategori', 'desa'));
     }
@@ -53,9 +53,14 @@ class WisataController extends Controller
             'jam_buka'    => 'nullable|string|max:50',
             'harga_tiket' => 'nullable|numeric|min:0',
             'fasilitas'   => 'nullable|string',
+            'foto_utama'  => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
         $data['user_id'] = Auth::id();   // ← catat siapa yang input
+
+         if ($request->hasFile('foto_utama')) {
+            $data['foto_utama'] = $request->file('foto_utama')->store('wisata', 'public');
+        }
 
         Wisata::create($data);
 
@@ -72,7 +77,7 @@ class WisataController extends Controller
     public function edit(Wisata $wisata)
     {
         $this->authorizeAkses($wisata);
-        $kategori = Kategori::all();
+        $kategori = Kategori::orderBy('nama_kategori')->get();
         $desa     = Desa::all();
         return view('admin.wisata.edit', compact('wisata', 'kategori', 'desa'));
     }
@@ -92,7 +97,21 @@ class WisataController extends Controller
             'jam_buka'    => 'nullable|string|max:50',
             'harga_tiket' => 'nullable|numeric|min:0',
             'fasilitas'   => 'nullable|string',
+            'foto_utama'  => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
+
+        // Proses upload foto baru sebelum data disimpan
+        if ($request->hasFile('foto_utama')) {
+            // Hapus foto lama jika ada
+            if ($wisata->foto_utama) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($wisata->foto_utama);
+            }
+            // Simpan foto baru
+            $data['foto_utama'] = $request->file('foto_utama')->store('wisata', 'public');
+        } else {
+            // Jangan timpa foto lama jika tidak ada upload baru
+            unset($data['foto_utama']);
+        }
 
         $wisata->update($data);
 
@@ -103,6 +122,12 @@ class WisataController extends Controller
     public function destroy(Wisata $wisata)
     {
         $this->authorizeAkses($wisata);
+        
+        // Hapus file foto
+        if ($wisata->foto_utama) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($wisata->foto_utama);
+        }
+        
         $wisata->delete();
 
         return redirect()->route('admin.wisata.index')

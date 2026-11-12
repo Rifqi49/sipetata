@@ -28,8 +28,8 @@
                     <td class="px-4 py-2 font-medium">{{ $w->nama_wisata }}</td>
                     <td class="px-4 py-2">
                         <span class="px-2 py-1 text-xs rounded text-white"
-                              style="background: {{ $w->kategori->warna_marker }}">
-                            {{ $w->kategori->nama_kategori }}
+                              style="background: {{ $w->kategori?->warna_marker ?? '#9ca3af' }}">
+                            {{ $w->kategori?->nama_kategori ?? '-' }}
                         </span>
                     </td>
                     <td class="px-4 py-2 text-gray-600">

@@ -15,7 +15,7 @@ class WisataController extends Controller
     {
         $totalWisata   = Wisata::count();
         $totalKategori = Kategori::count();
-        $kategori      = Kategori::withCount('wisata')->get();
+        $kategori      = Kategori::withCount('wisata')->orderBy('nama_kategori')->get();
 
         return view('welcome', compact('totalWisata', 'totalKategori', 'kategori'));
     }
@@ -25,7 +25,7 @@ class WisataController extends Controller
      */
     public function peta()
     {
-        $kategori = Kategori::all();
+        $kategori = Kategori::orderBy('nama_kategori')->get();
         return view('peta', compact('kategori'));
     }
 

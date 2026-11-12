@@ -31,6 +31,13 @@
                           {{ request()->routeIs('admin.wisata.*') ? 'bg-emerald-700' : '' }}">
                     Data Wisata
                 </a>
+                @if(in_array(auth()->user()->role, ['superadmin', 'admin'], true))
+                    <a href="{{ route('admin.kategori.index') }}"
+                       class="block px-3 py-2 rounded hover:bg-emerald-700
+                              {{ request()->routeIs('admin.kategori.*') ? 'bg-emerald-700' : '' }}">
+                        Kategori Wisata
+                    </a>
+                @endif
                 <a href="{{ route('admin.peta') }}"
                    class="block px-3 py-2 rounded hover:bg-emerald-700
                           {{ request()->routeIs('admin.peta') ? 'bg-emerald-700' : '' }}">
@@ -55,6 +62,12 @@
             @if(session('success'))
                 <div class="mb-4 p-3 bg-green-100 text-green-800 rounded">
                     {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="mb-4 p-3 bg-red-100 text-red-800 rounded">
+                    {{ session('error') }}
                 </div>
             @endif
 

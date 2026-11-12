@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::create('kategori', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_kategori', 50);
+            $table->string('nama_kategori', 50)->unique();
             $table->text('deskripsi')->nullable();
             $table->string('warna_marker', 7)->default('#3388ff');
             $table->string('icon_marker', 100)->nullable();
@@ -19,10 +19,9 @@ return new class extends Migration
         });
 
         DB::table('kategori')->insert([
-            ['nama_kategori' => 'Wisata Alam',   'warna_marker' => '#27ae60', 'created_at' => now(), 'updated_at' => now()],
-            ['nama_kategori' => 'Wisata Bahari', 'warna_marker' => '#2980b9', 'created_at' => now(), 'updated_at' => now()],
-            ['nama_kategori' => 'Wisata Budaya', 'warna_marker' => '#8e44ad', 'created_at' => now(), 'updated_at' => now()],
-            ['nama_kategori' => 'Wisata Buatan', 'warna_marker' => '#e67e22', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 1, 'nama_kategori' => 'Alam',             'warna_marker' => '#27ae60', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 2, 'nama_kategori' => 'Religi & Budaya',  'warna_marker' => '#8e44ad', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 3, 'nama_kategori' => 'Buatan',           'warna_marker' => '#e67e22', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 

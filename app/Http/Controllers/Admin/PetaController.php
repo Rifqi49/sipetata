@@ -15,7 +15,7 @@ class PetaController extends Controller
      */
     public function index()
     {
-        $kategori = Kategori::all();
+        $kategori = Kategori::orderBy('nama_kategori')->get();
 
         return view('admin.peta', compact('kategori'));
     }
